@@ -23,6 +23,20 @@ executable pendulum-demo
     base >= 4.14 && < 5
   ghc-options: -Wall
 
+executable double-pendulum-demo
+  default-language: Haskell2010
+  hs-source-dirs:   app, src
+  main-is:          DoublePendulum.hs
+  other-modules:
+    Symbolic.Expr
+    Symbolic.Differentiation
+    Symbolic.Simplify
+    Mechanics.Lagrangian
+    Mechanics.Hamiltonian
+  build-depends:
+    base >= 4.14 && < 5
+  ghc-options: -Wall
+
 executable test-symbolic
   default-language: Haskell2010
   hs-source-dirs:   app, src
