@@ -1,9 +1,9 @@
-# Péndulo simple — Ecuaciones de Euler-Lagrange simbólicas
+# Mecánica simbólica — Lagrangianos y Hamiltonianos
 
 Port del demo de [scmutils](https://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt) (MIT Scheme) a Haskell puro.
 
-Deriva automáticamente las ecuaciones de Euler-Lagrange para un péndulo simple
-a partir de su Lagrangiano, usando un motor de álgebra simbólica autocontenido.
+Deriva automáticamente ecuaciones de Euler-Lagrange y Hamiltonianos
+a partir de Lagrangianos simbólicos, usando un motor de álgebra simbólica autocontenido.
 
 ## Requisitos
 
@@ -77,6 +77,42 @@ Es decir:
    l*θ̈ + g*sin(θ) = 0 )
 ```
 
+### Demo péndulo doble (Lagrangiano → Hamiltoniano)
+
+```bash
+cabal run double-pendulum-demo
+```
+
+Modela un péndulo doble con **5 parámetros simbólicos** (`m1`, `m2`, `l1`, `l2`, `g`)
+y 2 coordenadas generalizadas (`θ₁`, `θ₂`).
+
+El programa calcula y muestra:
+
+1. El **Lagrangiano** L = T − V
+2. Los **momentos conjugados** p₁ = ∂L/∂θ̇₁, p₂ = ∂L/∂θ̇₂
+3. El **Hamiltoniano** H = Σ θ̇ᵢ·pᵢ − L (transformada de Legendre)
+
+Salida esperada (estructura):
+
+```
+=====================================================
+ Péndulo doble — Lagrangiano y Hamiltoniano
+ 5 parámetros simbólicos: m1, m2, l1, l2, g
+=====================================================
+
+Lagrangiano  L(θ₁, θ₂, θ̇₁, θ̇₂):
+  ...
+
+Momentos conjugados:
+  p_theta1 = ∂L/∂theta1dot =
+    ...
+  p_theta2 = ∂L/∂theta2dot =
+    ...
+
+Hamiltoniano  H = Σ θ̇ᵢ·pᵢ − L  (en coordenadas y velocidades):
+  ...
+```
+
 ### Tests del motor simbólico
 
 ```bash
@@ -117,8 +153,10 @@ src/
     Differentiation.hs             -- Diferenciación simbólica (cadena, producto, etc.)
   Mechanics/
     Lagrangian.hs                  -- Euler-Lagrange automático
+    Hamiltonian.hs                 -- Transformada de Legendre (L → H)
 app/
-  Main.hs                         -- Demo del péndulo
+  Main.hs                         -- Demo del péndulo simple
+  DoublePendulum.hs               -- Demo del péndulo doble (Lagrangiano + Hamiltoniano)
   TestSymbolic.hs                  -- Suite de tests
 ```
 
@@ -132,3 +170,5 @@ app/
 | `(literal-function 'theta)` | `funApp "theta" [sym "t"]` |
 | `(Lagrange-equations L)` | `lagrangeEquations L "theta"` |
 | `show-expression` | `showExpression` |
+| — | `conjugateMomenta` |
+| — | `legendreTransform` |
