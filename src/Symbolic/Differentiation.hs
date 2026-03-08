@@ -56,7 +56,7 @@ rawDiff (Div a b) x =
 rawDiff (Pow base (Num n)) x =
   Mul (Mul (Num n) (Pow base (Num (n - 1))))
       (rawDiff base x)
-rawDiff p@(Pow _ _) _ = Deriv p ""   -- leave as-is for non-constant exp
+rawDiff p@(Pow _ _) x = Deriv p x    -- leave as-is for non-constant exp
 
 -- Trig — chain rule
 rawDiff (Sin a) x = Mul (Cos a)           (rawDiff a x)

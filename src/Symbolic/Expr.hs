@@ -138,7 +138,7 @@ showExpr d (Mul a b) = showParen (d > 7) $
 showExpr d (Div a b) = showParen (d > 7) $
   showExpr 7 a . showString "/" . showExpr 8 b
 
-showExpr _ (Pow a b) =
+showExpr d (Pow a b) = showParen (d > 8) $
   showExpr 9 a . showString "^" . showExpr 9 b
 
 showExpr _ (Sin a) =
